@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { Menu, X, User } from "lucide-react";
+// React Icons (Fi pack) ইমপোর্ট করা হয়েছে
+import { FiMenu, FiX, FiUser } from "react-icons/fi";
 import { usePathname } from "next/navigation";
+
 const Nav = () => {
   const pathName = usePathname();
 
@@ -13,6 +15,7 @@ const Nav = () => {
     { name: "My Bookings", href: "/bookings" },
     { name: "Admin", href: "/admin" },
   ];
+
   return (
     <nav className="bg-white shadow-sm w-full sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -23,7 +26,7 @@ const Nav = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-600 hover:text-gray-900 focus:outline-none"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
           </div>
 
@@ -43,12 +46,12 @@ const Nav = () => {
 
                 <span
                   className={`absolute bottom-0 left-0 h-[3px] bg-cyan-500 transition-all duration-300 ease-out ${
-                    pathName === link.href ? "w-full" : "w-0 group-hover:w-0"
+                    pathName === link.href ? "w-full" : "w-0 group-hover:w-full"
                   }`}
                 ></span>
 
                 {pathName === link.href && (
-                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-cyan-500  opacity-50"></span>
+                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-cyan-500 opacity-50 blur-[1px]"></span>
                 )}
               </Link>
             ))}
@@ -70,7 +73,7 @@ const Nav = () => {
               href="/profile"
               className="flex items-center text-gray-800 hover:text-cyan-500 text-xs sm:text-sm font-medium"
             >
-              <User size={16} className="sm:mr-1" />
+              <FiUser size={16} className="sm:mr-1" />
               <span className="hidden sm:inline">Profile</span>
             </Link>
             <Link
@@ -114,7 +117,7 @@ const Nav = () => {
                 onClick={() => setIsOpen(false)}
                 className="text-gray-500"
               >
-                <X size={20} />
+                <FiX size={20} />
               </button>
             </div>
             <div className="flex flex-col space-y-4">
