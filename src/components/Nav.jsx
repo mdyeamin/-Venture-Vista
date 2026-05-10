@@ -2,7 +2,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Menu, X, User } from "lucide-react";
+import { usePathname } from "next/navigation";
 const Nav = () => {
+  const pathName = usePathname();
+
   const [isOpen, setIsOpen] = useState(false);
   const navLinks = [
     { name: "Home", href: "/" },
@@ -30,13 +33,23 @@ const Nav = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`${
-                  link.name === "Home"
-                    ? "text-cyan-500 border-b-2 border-cyan-500"
+                className={`relative text-sm font-medium transition-colors h-16 flex items-center group ${
+                  pathName === link.href
+                    ? "text-cyan-500"
                     : "text-gray-800 hover:text-cyan-500"
-                } text-sm font-medium transition-colors h-16 flex items-center`}
+                }`}
               >
                 {link.name}
+
+                <span
+                  className={`absolute bottom-0 left-0 h-[3px] bg-cyan-500 transition-all duration-300 ease-out ${
+                    pathName === link.href ? "w-full" : "w-0 group-hover:w-0"
+                  }`}
+                ></span>
+
+                {pathName === link.href && (
+                  <span className="absolute bottom-0 left-0 w-full h-[3px] bg-cyan-500  opacity-50"></span>
+                )}
               </Link>
             ))}
           </div>
