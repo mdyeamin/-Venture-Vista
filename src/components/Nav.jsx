@@ -14,6 +14,7 @@ const Nav = () => {
     { name: "Destinations", href: "/destinations" },
     { name: "My Bookings", href: "/bookings" },
     { name: "Admin", href: "/admin" },
+    { name: "Add Destination", href: "/add-destination" },
   ];
 
   return (
