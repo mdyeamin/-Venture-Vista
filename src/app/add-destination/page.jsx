@@ -12,22 +12,15 @@ import {
   FieldGroup,
   FieldError,
 } from "@heroui/react";
-const addDestination = () => {
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const destination = Object.fromEntries(formData.entries());
-    console.log(destination, "destination by me");
+import { useRouter } from "next/navigation";
+import { onSubmit } from "@/lib/action";
 
-    const res = await fetch("http://localhost:8000/destination", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(destination),
-    });
-    console.log(res,"response by me");
-  };
+
+
+
+
+const addDestination = () => {
+    const router = useRouter()
 
   const categories = [
     { id: "beach", name: "Beach" },
@@ -40,13 +33,13 @@ const addDestination = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4 py-12">
       <Form
         className="w-full max-w-2xl bg-white p-8 rounded-lg shadow-sm border border-gray-100"
-        onSubmit={onSubmit}
+        onSubmit={(e)=> onSubmit(e,router)}
       >
         <FieldGroup className="space-y-6">
           {/* Destination Name */}
           <TextField
             isRequired
-            name="Name"
+            name="name"
             validate={(value) => {
               if (value.length < 3) return "Destination name is too short";
               return null;
@@ -120,7 +113,7 @@ const addDestination = () => {
                 return null;
               }}
             >
-              <Label className="font-semibold text-gray-700">Duration</Label>
+              <Label className="font-semibold text-gray-700">duration</Label>
               <Input
                 placeholder="e.g., 7 Days/6 Nights"
                 className="bg-gray-50/50"
@@ -130,7 +123,7 @@ const addDestination = () => {
           </div>
 
           {/* Departure Date */}
-          <TextField isRequired name="Date" type="date">
+          <TextField isRequired name="date" type="date">
             <Label className="font-semibold text-gray-700">
               Departure Date
             </Label>
