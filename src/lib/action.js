@@ -5,7 +5,7 @@ export const onSubmit = async (e,router) => {
     const formData = new FormData(e.currentTarget);
     const destination = Object.fromEntries(formData.entries());
 
-    const res = await fetch("http://localhost:8000/destination", {
+    const res = await fetch("http://localhost:8000/destinations", {
       method: "POST",
       headers: {
         "content-type": "application/json",
