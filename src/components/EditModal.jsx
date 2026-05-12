@@ -13,11 +13,12 @@ import {
   TextField,
   FieldGroup,
 } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { FiSave, FiEdit } from "react-icons/fi";
 
 const EditModal = ({destination}) => {
     
-
+const router = useRouter()
     
     const { name,_id, country, category, price, duration, date, image, description } = destination;
   const categories = [
@@ -48,7 +49,7 @@ const EditModal = ({destination}) => {
               </Modal.Header>
 
               <Modal.Body className="p-6">
-                <Form onSubmit={(e)=>updateDestination(e,_id)} className="w-full">
+                <Form onSubmit={(e)=>updateDestination(e,_id,router)} className="w-full">
                   <FieldGroup className="space-y-6">
                     
                     {/* Destination Name */}

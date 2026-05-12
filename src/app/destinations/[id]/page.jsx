@@ -1,4 +1,5 @@
 import BackButton from "@/components/BackButton";
+import DeleteModal from "@/components/DeleteModal";
 import EditModal from "@/components/EditModal";
 import { getSingleDestinationsById } from "@/lib/data";
 import Image from "next/image";
@@ -26,9 +27,7 @@ const Details = async ({ params }) => {
         <BackButton />
         <div className="flex gap-3">
           <EditModal destination={destination} />
-          <button className="flex items-center gap-2 border border-red-200 text-red-500 px-4 py-1.5 rounded-md hover:bg-red-50 transition">
-            <FiTrash2 size={16} /> Cancel
-          </button>
+          <DeleteModal destination={destination}/>
         </div>
       </div>
 

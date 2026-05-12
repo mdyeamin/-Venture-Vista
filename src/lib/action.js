@@ -1,5 +1,6 @@
+import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
-
+// submit operation
 export const onSubmit = async (e, router) => {
   e.preventDefault();
   const formData = new FormData(e.currentTarget);
@@ -14,17 +15,17 @@ export const onSubmit = async (e, router) => {
   });
   if (res.ok) {
     toast.success(" added successfully!");
-    router.push("/destinations");
+    redirect("/destinations")
     router.refresh();
   }
   const data = await res.json();
   console.log(data, "response by me");
 };
 
-export const updateDestination = async (e,_id) => {
-  
-  e.preventDefault();
+// update operation
 
+export const updateDestination = async (e, _id, router) => {
+  e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
 
@@ -38,6 +39,29 @@ export const updateDestination = async (e,_id) => {
     body: JSON.stringify(updateData),
   });
   const data = await res.json();
-
+  if (res.ok) {
+    toast.success(" Updated successfully!");
+    router.refresh();
+    redirect('/destinations')
+  }
   console.log("after update", data);
+};
+
+// delete operation
+
+export const deleteDestination = async (_id) => {
+  const res = await fetch(`http://localhost:8000/destinations/${_id}`, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  console.log(data);
+
+  if(res.ok){
+    toast.success(" Delete successfully!");
+    redirect("/destinations")
+  }
+  
 };
