@@ -1,10 +1,6 @@
 "use client";
-import {
-  Envelope,
-  Eye,
-  EyeSlash,
-  Lock,
-} from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
+import { Envelope, Eye, EyeSlash, Lock } from "@gravity-ui/icons";
 import {
   Button,
   Checkbox,
@@ -15,33 +11,54 @@ import {
   TextField,
 } from "@heroui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    return (
-        <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-center py-8 px-4">
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const userData = Object.fromEntries(formData.entries());
+    const { data, error } = await authClient.signIn.email({
+      email: userData.email,
+      password: userData.password,
+    });
+    if (data) {
+      redirect("/");
+    }
+    console.log("data", data, "error", error);
+  };
+  const [isVisible, setIsVisible] = useState(false);
+  return (
+    <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-center py-8 px-4">
       {/* Header Section Updated per image_a2111a.png */}
       <div className="text-center mb-6">
         <h1 className="text-3xl md:text-4xl font-serif text-gray-900 mb-2">
           Welcome Back
         </h1>
-        <p className="text-gray-500 text-sm md:text-base">Resume your adventure with Wanderlust</p>
+        <p className="text-gray-500 text-sm md:text-base">
+          Resume your adventure with Wanderlust
+        </p>
       </div>
 
       {/* Form Card */}
       <div className="bg-white p-6 md:p-10 rounded-xl shadow-sm border border-gray-100 w-full max-w-[450px]">
-        <Form className="flex flex-col gap-4">
-          
+        <Form onSubmit={handleLogin} className="flex flex-col gap-4">
           {/* Email Address */}
           <TextField
             isRequired
             name="email"
             type="email"
-            validate={(value) => !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value) ? "Invalid email address" : null}
+            validate={(value) =>
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+                ? "Invalid email address"
+                : null
+            }
           >
-            <Label className="text-sm font-bold text-gray-700 mb-1 block">Email Address</Label>
+            <Label className="text-sm font-bold text-gray-700 mb-1 block">
+              Email Address
+            </Label>
             <InputGroup>
               <InputGroup.Prefix>
                 <Envelope className="size-4 text-gray-400" />
@@ -59,9 +76,13 @@ const Login = () => {
             isRequired
             name="password"
             type="password"
-            validate={(value) => value.length < 8 ? "At least 8 characters" : null}
+            validate={(value) =>
+              value.length < 8 ? "At least 8 characters" : null
+            }
           >
-            <Label className="text-sm font-bold text-gray-700 mb-1 block">Password</Label>
+            <Label className="text-sm font-bold text-gray-700 mb-1 block">
+              Password
+            </Label>
             <InputGroup>
               <InputGroup.Prefix>
                 <Lock className="size-4 text-gray-400" />
@@ -72,8 +93,17 @@ const Login = () => {
                 type={isVisible ? "text" : "password"}
               />
               <InputGroup.Suffix>
-                <Button isIconOnly variant="ghost" size="sm" onPress={() => setIsVisible(!isVisible)}>
-                  {isVisible ? <Eye className="size-4 text-gray-400" /> : <EyeSlash className="size-4 text-gray-400" />}
+                <Button
+                  isIconOnly
+                  variant="ghost"
+                  size="sm"
+                  onPress={() => setIsVisible(!isVisible)}
+                >
+                  {isVisible ? (
+                    <Eye className="size-4 text-gray-400" />
+                  ) : (
+                    <EyeSlash className="size-4 text-gray-400" />
+                  )}
                 </Button>
               </InputGroup.Suffix>
             </InputGroup>
@@ -82,8 +112,14 @@ const Login = () => {
 
           {/* Remember Me & Forgot Password Section */}
           <div className="flex items-center justify-between mt-1">
-            <Checkbox size="sm" className="text-gray-500">Remember me</Checkbox>
-            <Link href="/forgot-password" size="sm" className="text-[#1DA1C1] text-sm hover:underline">
+            <Checkbox size="sm" className="text-gray-500">
+              Remember me
+            </Checkbox>
+            <Link
+              href="/forgot-password"
+              size="sm"
+              className="text-[#1DA1C1] text-sm hover:underline"
+            >
               Forgot password?
             </Link>
           </div>
@@ -116,14 +152,17 @@ const Login = () => {
           {/* Footer Link Updated per image_a2111a.png */}
           <p className="text-center text-sm text-gray-500 mt-2">
             Don't have an account?{" "}
-            <Link href={'/signup'} className="text-[#1DA1C1] font-bold cursor-pointer hover:underline">
+            <Link
+              href={"/signup"}
+              className="text-[#1DA1C1] font-bold cursor-pointer hover:underline"
+            >
               Sign Up
             </Link>
           </p>
         </Form>
       </div>
     </div>
-    );
+  );
 };
 
 export default Login;
