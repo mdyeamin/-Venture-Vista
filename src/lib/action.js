@@ -15,7 +15,7 @@ export const onSubmit = async (e, router) => {
   });
   if (res.ok) {
     toast.success(" added successfully!");
-    redirect("/destinations")
+    redirect("/destinations");
     router.refresh();
   }
   const data = await res.json();
@@ -42,7 +42,7 @@ export const updateDestination = async (e, _id, router) => {
   if (res.ok) {
     toast.success(" Updated successfully!");
     router.refresh();
-    redirect('/destinations')
+    redirect("/destinations");
   }
   console.log("after update", data);
 };
@@ -59,9 +59,8 @@ export const deleteDestination = async (_id) => {
   const data = await res.json();
   console.log(data);
 
-  if(res.ok){
+  if (res.ok) {
     toast.success(" Delete successfully!");
-    redirect("/destinations")
+    redirect("/destinations");
   }
-  
 };
