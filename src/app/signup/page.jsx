@@ -10,7 +10,6 @@ import {
 } from "@gravity-ui/icons";
 import {
   Button,
-  dateRangePickerVariants,
   FieldError,
   Form,
   InputGroup,
@@ -21,6 +20,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+
+const signInWithGoogle = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+  });
+};
 
 const SignUp = () => {
   const handleSIgnUp = async (e) => {
@@ -191,6 +196,7 @@ const SignUp = () => {
 
           {/* Google Login */}
           <Button
+            onClick={signInWithGoogle}
             variant="bordered"
             className="w-full rounded-md border-gray-200 h-11 font-bold text-gray-700 flex items-center justify-center gap-3 hover:bg-gray-50 transition-colors"
           >

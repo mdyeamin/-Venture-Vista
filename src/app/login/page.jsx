@@ -16,6 +16,11 @@ import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const signInWithGoogle = async () => {
+    const data = await authClient.signIn.social({
+      provider: "google",
+    });
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -142,6 +147,7 @@ const Login = () => {
 
           {/* Google Login */}
           <Button
+          onClick={signInWithGoogle}
             variant="bordered"
             className="w-full rounded-md border-gray-200 h-11 font-bold text-gray-700 flex items-center justify-center gap-3 hover:bg-gray-50 transition-colors"
           >
