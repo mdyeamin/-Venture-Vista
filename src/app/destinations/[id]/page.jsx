@@ -1,18 +1,10 @@
 import BackButton from "@/components/BackButton";
+import Booking from "@/components/Booking";
 import DeleteModal from "@/components/DeleteModal";
 import EditModal from "@/components/EditModal";
 import { getSingleDestinationsById } from "@/lib/data";
 import Image from "next/image";
-import {
-  FiArrowLeft,
-  FiEdit,
-  FiTrash2,
-  FiMapPin,
-  FiStar,
-  FiCalendar,
-  FiCheck,
-  FiArrowRight,
-} from "react-icons/fi";
+import { FiMapPin, FiStar, FiCalendar, FiCheck } from "react-icons/fi";
 
 const Details = async ({ params }) => {
   const { id } = await params;
@@ -27,7 +19,7 @@ const Details = async ({ params }) => {
         <BackButton />
         <div className="flex gap-3">
           <EditModal destination={destination} />
-          <DeleteModal destination={destination}/>
+          <DeleteModal destination={destination} />
         </div>
       </div>
 
@@ -98,39 +90,7 @@ const Details = async ({ params }) => {
         </div>
 
         {/* Right Column: Booking Card */}
-        <div className="lg:col-span-1">
-          <div className="border border-gray-100 rounded-2xl p-8 shadow-xl bg-white sticky top-10">
-            <p className="text-gray-500 text-sm">Starting from</p>
-            <div className="flex items-baseline gap-1 mb-4">
-              <span className="text-4xl font-bold text-[#1DA1C1]">
-                ${price}
-              </span>
-              <span className="text-gray-500">per person</span>
-            </div>
-
-            <div className="mb-6">
-              <div className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 text-gray-700">
-                {date}
-              </div>
-            </div>
-
-            <button className="w-full bg-[#1DA1C1] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#178ba7] transition-all mb-6">
-              Book Now <FiArrowRight />
-            </button>
-
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-xs text-green-700">
-                <FiCheck /> Free cancellation up to 7 days
-              </li>
-              <li className="flex items-center gap-2 text-xs text-green-700">
-                <FiCheck /> Travel insurance included
-              </li>
-              <li className="flex items-center gap-2 text-xs text-green-700">
-                <FiCheck /> 24/7 customer support
-              </li>
-            </ul>
-          </div>
-        </div>
+        <Booking destination={destination} />
       </div>
     </div>
   );
