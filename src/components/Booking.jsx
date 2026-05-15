@@ -2,6 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Calendar } from "@gravity-ui/icons";
 import { InputGroup, Label, TextField } from "@heroui/react";
+import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { FiArrowRight, FiCheck } from "react-icons/fi";
 
@@ -13,10 +14,10 @@ const Booking = ({ destination }) => {
   const { price, name, _id, image, duration, description, country, category } =
     destination;
 
-  const handleBooking = async() => {
+  const handleBooking = async () => {
     if (dateValue === null) {
       alert("Please pick a Date");
-      return
+      return;
     }
     const bookingData = {
       userName: user?.name,
@@ -33,7 +34,19 @@ const Booking = ({ destination }) => {
       country,
       category,
     };
-    console.log(bookingData);
+
+    const res = await fetch("http://localhost:8000/booking", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(bookingData),
+    });
+    const data =await res.json();
+    console.log("after Booking", data);
+    if(res.ok){
+      redirect("/my-bookings")
+    }
   };
 
   return (

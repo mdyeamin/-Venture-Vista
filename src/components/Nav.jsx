@@ -16,7 +16,7 @@ const Nav = () => {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Destinations", href: "/destinations" },
-    { name: "My Bookings", href: "/bookings" },
+    { name: "My Bookings", href: "/my-bookings" },
     { name: "Admin", href: "/admin" },
     { name: "Add Destination", href: "/add-destination" },
   ];
