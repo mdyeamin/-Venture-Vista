@@ -8,9 +8,9 @@ const MyBookings = async () => {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-  const { user } = session;
+  // const user = session;
 
-  const res = await fetch(`http://localhost:8000/booking/${user?.id}`);
+  const res = await fetch(`http://localhost:8000/booking/${session?.user?.id}`);
   const bookedData = await res.json();
 
   return (
