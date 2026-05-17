@@ -22,10 +22,12 @@ export const auth = betterAuth({
     client,
   }),
   session: {
-    enabled: true,
-    strategy: "jwt",
-    // max 7 days
-    maxAge: 7 * 24 * 60 * 60,
+    cookieCache: {
+      enabled: true,
+      strategy: "jwt",
+      // max 7 days
+      maxAge: 7 * 24 * 60 * 60,
+    },
   },
   plugins: [jwt()],
 });
