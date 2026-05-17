@@ -43,7 +43,7 @@ const Login = () => {
           Welcome Back
         </h1>
         <p className="text-gray-500 text-sm md:text-base">
-          Resume your adventure with Wanderlust
+          Resume your adventure with Venture Vista
         </p>
       </div>
 

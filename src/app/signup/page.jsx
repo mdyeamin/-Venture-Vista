@@ -53,7 +53,7 @@ const SignUp = () => {
           Create Account
         </h1>
         <p className="text-gray-500 text-sm md:text-base">
-          Start your adventure with Wanderlust
+          Start your adventure with Venture Vista
         </p>
       </div>
 
