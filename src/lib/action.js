@@ -1,15 +1,22 @@
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
-// submit operation
+
+import { authClient } from "./auth-client";
+
+// submit destination operation
 export const onSubmit = async (e, router) => {
   e.preventDefault();
   const formData = new FormData(e.currentTarget);
   const destination = Object.fromEntries(formData.entries());
 
+  const { data: token } = await authClient.token();
+  console.log(token, "token from action");
+
   const res = await fetch("http://localhost:8000/destinations", {
     method: "POST",
     headers: {
       "content-type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(destination),
   });
@@ -30,11 +37,13 @@ export const updateDestination = async (e, _id, router) => {
   const formData = new FormData(e.currentTarget);
 
   const updateData = Object.fromEntries(formData.entries());
-
+const {data:token} = await authClient.token()
+console.log("token from update destination", token);
   const res = await fetch(`http://localhost:8000/destinations/${_id}`, {
     method: "PATCH",
     headers: {
       "content-type": "application/json",
+      authorization: `Bearer ${token.token}`
     },
     body: JSON.stringify(updateData),
   });
@@ -50,10 +59,14 @@ export const updateDestination = async (e, _id, router) => {
 // delete operation
 
 export const deleteDestination = async (_id) => {
+  const { data: token } = await authClient.token();
+  console.log("token from delete destination", token);
+
   const res = await fetch(`http://localhost:8000/destinations/${_id}`, {
     method: "DELETE",
     headers: {
       "content-type": "application/json",
+      authorization: `Bearer ${token.token}`,
     },
   });
   const data = await res.json();

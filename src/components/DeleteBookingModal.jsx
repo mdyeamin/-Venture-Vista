@@ -1,14 +1,19 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { redirect } from "next/navigation";
 
 import { FiTrash2 } from "react-icons/fi";
 const DeleteBookingModal = ({ bookingId }) => {
   const handleDeleteBooking = async () => {
+    const {data:token} = await authClient.token()
+    console.log('token from cancel Booked',token);
+    
     const res = await fetch(`http://localhost:8000/booking/${bookingId}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${token.token}`
       },
     });
     const data = await res.json();
