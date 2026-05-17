@@ -7,7 +7,7 @@ export const getDestinations = async () => {
     headers:await headers()
   })
   console.log("token from all destinations",token)
-  const res = await fetch("http://localhost:8000/destinations", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destinations`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
@@ -23,7 +23,7 @@ export const getSingleDestinationsById = async (id) => {
   });
   console.log("token from single destination (details)",token);
 
-  const res = await fetch(`http://localhost:8000/destinations/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${id}`, {
     headers: {
       authorization: `Bearer ${token}`,
     },

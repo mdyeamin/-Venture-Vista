@@ -12,7 +12,7 @@ export const onSubmit = async (e, router) => {
   const { data: token } = await authClient.token();
   console.log(token, "token from action");
 
-  const res = await fetch("http://localhost:8000/destinations", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destinations`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -39,7 +39,7 @@ export const updateDestination = async (e, _id, router) => {
   const updateData = Object.fromEntries(formData.entries());
 const {data:token} = await authClient.token()
 console.log("token from update destination", token);
-  const res = await fetch(`http://localhost:8000/destinations/${_id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${_id}`, {
     method: "PATCH",
     headers: {
       "content-type": "application/json",
@@ -62,7 +62,7 @@ export const deleteDestination = async (_id) => {
   const { data: token } = await authClient.token();
   console.log("token from delete destination", token);
 
-  const res = await fetch(`http://localhost:8000/destinations/${_id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${_id}`, {
     method: "DELETE",
     headers: {
       "content-type": "application/json",

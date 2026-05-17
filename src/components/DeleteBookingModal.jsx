@@ -9,7 +9,7 @@ const DeleteBookingModal = ({ bookingId }) => {
     const {data:token} = await authClient.token()
     console.log('token from cancel Booked',token);
     
-    const res = await fetch(`http://localhost:8000/booking/${bookingId}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${bookingId}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
